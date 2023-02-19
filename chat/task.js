@@ -33,33 +33,35 @@ userInput.addEventListener("change", (e) => {
     // selecting the element responsible for dialog window
     const messages = document.querySelector(".chat-widget__messages");
     // saving the message we typed on the keyboard to a variable by addressing .value property of event.target
-    const currentMessage = e.target.value;
+    const currentMessage = e.target.value.trim();
     // creating the current time variable
     let date = new Date();
     let localTime = date.toLocaleTimeString();
     // creating additional html blocks with our text and local time
     // by addressing innerHTML of previously selected element responsible for dialog window
-    messages.innerHTML += `
-    <div class="message message_client">
-    <div class="message__time"> ${localTime} </div>
-    <div class="message__text">
-        ${currentMessage}
-    </div>
-    </div>
-    `;
-    // choosing bot's reply by calling on the "randomizing" function
-    // saving the random reply to a variable
-    const currentBotReply = randomReply(replies);
-    // creating additional html blocks with bot's random reply and local time
-    // by addressing innerHTML of previously selected element responsible for dialog window
-    messages.innerHTML += `
-    <div class="message">
-    <div class="message__time"> ${localTime} </div>
-    <div class="message__text">
-        ${currentBotReply}
-    </div>
-    </div>
-    `;
-    // clearing the input box from our message
-    userInput.value = "";
+    if (currentMessage !== "") {
+        messages.innerHTML += `
+        <div class="message message_client">
+        <div class="message__time"> ${localTime} </div>
+        <div class="message__text">
+            ${currentMessage}
+        </div>
+        </div>
+        `;
+        // choosing bot's reply by calling on the "randomizing" function
+        // saving the random reply to a variable
+        const currentBotReply = randomReply(replies);
+        // creating additional html blocks with bot's random reply and local time
+        // by addressing innerHTML of previously selected element responsible for dialog window
+        messages.innerHTML += `
+        <div class="message">
+        <div class="message__time"> ${localTime} </div>
+        <div class="message__text">
+            ${currentBotReply}
+        </div>
+        </div>
+        `;
+        // clearing the input box from our message
+        userInput.value = "";
+    }
 });
